@@ -1,0 +1,34 @@
+{
+  "name": "web-audio-editor-test",
+  "version": "0.0.1",
+  "description": "Test audio player. Demonstrates basic use of Web Audio API, Material Design and file drag-and-drop.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Arty-fishL/Web-Audio-Editor-Test/"
+  },
+  "author": "Jamie Lievesley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Arty-fishL/Web-Audio-Editor-Test/issues"
+  },
+  "homepage": "https://github.com/Arty-fishL/Web-Audio-Editor-Test#readme",
+  "devDependencies": {
+    "autoprefixer": "^7.1.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-coffee": "^1.0.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^2.2.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^3.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-minify-html": "^3.0.0",
+    "grunt-postcss": "^0.8.0",
+    "grunt-sass": "^2.0.0",
+    "grunt-sass-tilde-importer": "^1.0.2"
+  },
+  "dependencies": {
+    "material-components-web": "^0.11.1"
+  }
+}
