@@ -10,6 +10,7 @@ and [Python 2.7](https://www.python.org/downloads/release/python-2713/) installe
 Grunt requires [Node.js](https://nodejs.org) and NPM.
 
 Initially build dependencies via this command in the project folder:
+
     npm install
 
 ## Building from Source
