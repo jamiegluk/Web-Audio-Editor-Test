@@ -14,12 +14,16 @@ var g_tracklist = [];
 /* Set to true when playing. */
 var g_playing = false;
 
+/* DnD uses a timeout on drag-exit to prevent flickering on Chrome end Edge. */
+var g_dragExitTimeout = null;
+
 
 // Triggered when a file is dragged enter or over the document
 function onDragInside(e) {
   e.stopPropagation();
   e.preventDefault();
 
+  clearTimeout(g_dragExitTimeout);
   $('main').addClass('dropzone-ready');
 
   var types = e.originalEvent.dataTransfer.types;
@@ -242,19 +246,25 @@ $(function() {
   window.mdc.autoInit();
 
   // Allow sound file drag and drop
+  var timeout = null;
   var dragzone = $(document);
   dragzone.on('dragenter', function (e) {
     e.originalEvent.dataTransfer.effectAllowed = "link";
     return onDragInside(e);
   })
   .on('dragover', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
     e.originalEvent.dataTransfer.dropEffect = "link";
     return onDragInside(e);
   })
   .on('dragleave dragexit dragend', function (e) {
     e.stopPropagation();
     e.preventDefault();
-    $('main').removeClass('dropzone-ready');
+    clearTimeout(g_dragExitTimeout);
+    g_dragExitTimeout = setTimeout(function() {
+      $('main').removeClass('dropzone-ready');
+    }, 100);
   })
   .on('drop', function (e) {
     e.preventDefault();
