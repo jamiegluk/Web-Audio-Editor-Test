@@ -89,7 +89,7 @@ function loadSoundFile(file) {
     // Calling seekTo within this causes event recursion (yuck)
     // So, set a timeout for seek events
     thisSeek = Date.now();
-    if(thisSeek - lastSeek < 10) {
+    if(thisSeek - lastSeek < 20) {
       lastSeek = thisSeek;
       return false;
     }
@@ -130,7 +130,7 @@ function loadSoundFile(file) {
   // Add track GUI item at end of current tracks
   $("#container-add").before($item);
 
-  // Initialise events
+  // Initialise GUI events
   window.mdc.autoInit();
   $item.find(".action-remove").on("click", function() {
     removeTrack(track);
@@ -138,6 +138,9 @@ function loadSoundFile(file) {
   $item.find(".action-mute").on("click", function() {
     toggleTrackMute(track);
   });
+
+  // Show play FAB
+  $("#fab").addClass("show");
 
 } // END FUNCTION loadSoundFile
 
@@ -182,6 +185,10 @@ function removeTrack(track) {
   g_tracklist.splice(index, 1);
   // Remove GUI item
   $(".container-track[data-track-num=" + track.number + "]").remove();
+  // If no tracks left, hide play FAB
+  if(g_tracklist.length <= 0) {
+    $("#fab").removeClass("show");
+  }
 }
 
 // Mutes/Unmutes an audio track

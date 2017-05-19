@@ -55,6 +55,14 @@ html {
     right: 3rem;
   }
 }
+#fab {
+  transform: scale(0);
+  transform-origin: center center;
+  transition: transform 250ms ease;
+}
+#fab.show {
+  transform: scale(1);
+}
 
 /* Now over-over-ide the background colour change we made above */
 .mdc-card {
