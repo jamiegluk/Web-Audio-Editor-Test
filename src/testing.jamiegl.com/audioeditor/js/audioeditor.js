@@ -11,11 +11,68 @@
 /* Tracks that have been added. */
 var g_tracklist = [];
 
+/* Track Number to assign to next added track (incrementing). */
+var g_nextTrackNumber = 1;
+
 /* Set to true when playing. */
 var g_playing = false;
 
 /* DnD uses a timeout on drag-exit to prevent flickering on Chrome end Edge. */
 var g_dragExitTimeout = null;
+
+
+
+// On page ready
+$(function() {
+
+  // Initialise material design
+  var toolbar = mdc.toolbar.MDCToolbar.attachTo(document.querySelector('.mdc-toolbar'));
+  toolbar.fixedAdjustElement = document.querySelector('.mdc-toolbar-fixed-adjust');
+  window.mdc.autoInit();
+
+  // Allow sound file drag and drop
+  var timeout = null;
+  var dragzone = $(document);
+  dragzone.on('dragenter', function (e) {
+    e.originalEvent.dataTransfer.effectAllowed = "link";
+    return onDragInside(e);
+  })
+  .on('dragover', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.originalEvent.dataTransfer.dropEffect = "link";
+    return onDragInside(e);
+  })
+  .on('dragleave dragexit dragend', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    clearTimeout(g_dragExitTimeout);
+    g_dragExitTimeout = setTimeout(function() {
+      $('main').removeClass('dropzone-ready');
+    }, 100);
+  })
+  .on('drop', function (e) {
+    e.preventDefault();
+    $('main').removeClass('dropzone-ready');
+    var files = e.originalEvent.dataTransfer.files;
+    onSoundFilesSelected(files);
+  });
+  // Sometimes drag-exit fucks up, let the user click the overlay to get rid of it
+  $("#overlay-dropzone-ready").click(function() {
+    $("main").removeClass("dropzone-ready");
+  });
+
+  // Make BROWSE action button work
+  $("#container-add button").click(function() {
+    $("#add-file-input").click();
+  });
+  $('#add-file-input').on("change", function(){
+    var files = $(this).prop("files");
+    onSoundFilesSelected(files);
+  });
+
+});
+
 
 
 // Triggered when a file is dragged enter or over the document
@@ -56,7 +113,7 @@ function loadSoundFile(file) {
     filename: file.name,
     wave:     null, // Can't create until we create the container (below)
     muted:    false,
-    number:   g_tracklist.length + 1
+    number:   g_nextTrackNumber ++,
   };
   g_tracklist.push(track);
 
@@ -94,20 +151,26 @@ function loadSoundFile(file) {
       return false;
     }
     lastSeek = thisSeek;
-    // Get triggering waveforms time
+    // Get calling wavesurfers current time
     var secs = wavesurfer.getCurrentTime();
+    // Loop through other wavesurfers
     for(var i=0; i<g_tracklist.length; i++) {
       var wave2 = g_tracklist[i].wave;
-      // Match other waveform up
-      var duration = wave2.getDuration();
-      if(secs >= duration) {
-        wave2.seekTo(1);
-        wave2.pause();
+      // Match other wavesurfer up
+      var w2duration = wave2.getDuration();
+      var w2secs = wave2.getCurrentTime();
+      if(secs >= w2duration) {
+        if(w2secs != w2duration) {
+          wave2.pause();
+          wave2.seekTo(1);
+        }
       } else {
-        wave2.seekTo(1.0 * secs / duration);
-        // Start playing wave again if stopped
-        if(g_playing) {
-          wave2.play();
+        if(w2secs != secs) {
+          wave2.seekTo(1.0 * secs / w2duration);
+          // Start playing wave again if stopped
+          if(g_playing) {
+            wave2.play();
+          }
         }
       }
     }
@@ -130,7 +193,7 @@ function loadSoundFile(file) {
   // Add track GUI item at end of current tracks
   $("#container-add").before($item);
 
-  // Initialise GUI events
+  // Initialise GUI item events
   window.mdc.autoInit();
   $item.find(".action-remove").on("click", function() {
     removeTrack(track);
@@ -225,7 +288,9 @@ function play() {
   // Play each track
   for(var i=0; i<g_tracklist.length; i++) {
     var wave = g_tracklist[i].wave;
-    wave.play();
+    if(wave.getDuration() != wave.getCurrentTime()) {
+      wave.play();
+    }
   }
 }
 
@@ -243,54 +308,3 @@ function stop() {
     wave.stop();
   }
 }
-
-
-$(function() {
-
-  // Initialise material design
-  var toolbar = mdc.toolbar.MDCToolbar.attachTo(document.querySelector('.mdc-toolbar'));
-  toolbar.fixedAdjustElement = document.querySelector('.mdc-toolbar-fixed-adjust');
-  window.mdc.autoInit();
-
-  // Allow sound file drag and drop
-  var timeout = null;
-  var dragzone = $(document);
-  dragzone.on('dragenter', function (e) {
-    e.originalEvent.dataTransfer.effectAllowed = "link";
-    return onDragInside(e);
-  })
-  .on('dragover', function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    e.originalEvent.dataTransfer.dropEffect = "link";
-    return onDragInside(e);
-  })
-  .on('dragleave dragexit dragend', function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    clearTimeout(g_dragExitTimeout);
-    g_dragExitTimeout = setTimeout(function() {
-      $('main').removeClass('dropzone-ready');
-    }, 100);
-  })
-  .on('drop', function (e) {
-    e.preventDefault();
-    $('main').removeClass('dropzone-ready');
-    var files = e.originalEvent.dataTransfer.files;
-    onSoundFilesSelected(files);
-  });
-  // Sometimes drag-exit fucks up, let the user click the overlay to get rid of it
-  $("#overlay-dropzone-ready").click(function() {
-    $("main").removeClass("dropzone-ready");
-  });
-
-  // Make BROWSE action button work
-  $("#container-add button").click(function() {
-    $("#add-file-input").click();
-  });
-  $('#add-file-input').on("change", function(){
-    var files = $(this).prop("files");
-    onSoundFilesSelected(files);
-  });
-
-});
