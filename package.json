@@ -4,14 +4,14 @@
   "description": "Test audio player. Demonstrates basic use of Web Audio API, Material Design and file drag-and-drop.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Arty-fishL/Web-Audio-Editor-Test/"
+    "url": "git+https://github.com/jamiegluk/Web-Audio-Editor-Test/"
   },
   "author": "Jamie Lievesley",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Arty-fishL/Web-Audio-Editor-Test/issues"
+    "url": "https://github.com/jamiegluk/Web-Audio-Editor-Test/issues"
   },
-  "homepage": "https://github.com/Arty-fishL/Web-Audio-Editor-Test#readme",
+  "homepage": "https://github.com/jamiegluk/Web-Audio-Editor-Test#readme",
   "devDependencies": {
     "autoprefixer": "^7.1.0",
     "grunt": "^1.0.1",
