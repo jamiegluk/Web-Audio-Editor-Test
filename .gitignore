@@ -47,6 +47,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# VS Code
+.vscode/*
+*.code-workspace
+.history/
 
 # Grunt/NPM/Node.js generated files (large size, can be re-created) #
 #####################################################################
