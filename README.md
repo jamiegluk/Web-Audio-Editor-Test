@@ -1,6 +1,6 @@
 # Web-Audio-Editor-Test
 
-[Click to View App Online](https://testing.jamiegl.com/audioeditor/#).
+[Click to View App Online](https://testing.jamiegl.com/audioeditor/#).  
 Test audio player. Demonstrates basic use of Web Audio API, Material Design and file drag-and-drop.
 
 This is simply an alpha-stage test and as such, many features could be improved.
