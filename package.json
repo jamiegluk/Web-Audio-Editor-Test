@@ -29,6 +29,6 @@
     "grunt-sass-tilde-importer": "^1.0.2"
   },
   "dependencies": {
-    "material-components-web": "^0.11.1"
+    "material-components-web": "^0.27.0"
   }
 }
