@@ -1,6 +1,6 @@
 {
   "name": "web-audio-editor-test",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Test audio player. Demonstrates basic use of Web Audio API, Material Design and file drag-and-drop.",
   "repository": {
     "type": "git",
