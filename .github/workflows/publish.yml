@@ -4,12 +4,11 @@ name: Publish Website
 
 on:
   release:
-    types: [ published, edited ]
+    types: [ published ]
     
 jobs:
   publish:
-    
-    if: contains(github.ref, 'master')
+    if: "!github.event.release.prerelease"
     
     runs-on: ubuntu-latest
     
