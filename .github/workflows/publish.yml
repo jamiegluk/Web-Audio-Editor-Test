@@ -35,7 +35,7 @@ jobs:
         ftp-server: ftp://ftp.jamiegl.com/
         ftp-username: deploy-audioeditor@testing.jamiegl.com
         ftp-password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: build
+        local-dir: build/testing.jamiegl.com/audioeditor
     
     - uses: actions/upload-artifact@v1
       with:
