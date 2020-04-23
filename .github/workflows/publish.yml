@@ -1,0 +1,32 @@
+# On release on master branch, uploads built site via FTP
+
+on:
+  release:
+    types: [ published, edited ]
+name: Publish Website
+jobs:
+  publish:
+    if: contains(github.ref, "master")
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+    - name: Setup Python
+      uses: actions/setup-python@v1.2.0
+      with:
+        python-version: 2.7.x
+    - name: Build Project
+      run: |
+        npm install -g grunt-cli
+        npm ci
+        grunt build
+      env:
+        CI: true
+    - name: FTP-Deploy-Action
+      uses: SamKirkland/FTP-Deploy-Action@3.0.0
+      with:
+        ftp-server: ftp://ftp.jamiegl.com/
+        ftp-username: deploy-audioeditor@testing.jamiegl.com
+        ftp-password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: build
