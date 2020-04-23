@@ -1,13 +1,18 @@
 # On release on master branch, uploads built site via FTP
 
+name: Publish Website
+
 on:
   release:
     types: [ published, edited ]
-name: Publish Website
+    
 jobs:
   publish:
-    if: contains(github.ref, "master")
+    
+    if: contains(github.ref, 'master')
+    
     runs-on: ubuntu-latest
+    
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js
