@@ -8,7 +8,7 @@ on:
     
 jobs:
   publish:
-    if: "!github.event.release.prerelease"
+    if: "!github.event.release.prerelease && github.event.release.target_commitish == 'master'"
     
     runs-on: ubuntu-latest
     
