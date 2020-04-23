@@ -1,7 +1,9 @@
 # Web-Audio-Editor-Test
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/jamiegluk/Web-Audio-Editor-Test?color=blue)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/jamiegluk/Web-Audio-Editor-Test/Node.js%20CI%20and%20Grunt)
+![GitHub build Workflow Status](https://img.shields.io/github/workflow/status/jamiegluk/Web-Audio-Editor-Test/Node.js%20CI%20and%20Grunt)
+![GitHub publish Workflow Status](https://img.shields.io/github/workflow/status/jamiegluk/Web-Audio-Editor-Test/Publish%20Website?label=publish)
+![Website](https://img.shields.io/website?url=https%3A%2F%2Ftesting.jamiegl.com%2Faudioeditor%2F%23)
 
 [Click to View App Online](https://testing.jamiegl.com/audioeditor/#).  
 Test audio player. Demonstrates basic use of Web Audio API, Material Design and file drag-and-drop.
