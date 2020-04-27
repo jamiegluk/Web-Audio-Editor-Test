@@ -8,7 +8,12 @@
 [Click to View App Online](https://testing.jamiegl.com/audioeditor/#).  
 Test audio player. Demonstrates basic use of Web Audio API, Material Design and file drag-and-drop.
 
-This is simply a proof-of-concept and, as such, many features could be improved.
+## IMPORTANT
+
+**This project's code is old, from 2017; do not view this as an example of my current work.**
+
+This is simply a proof-of-concept and, as such, many features could be improved.  
+I only update this project to resolve a failing build or security flaws.
 
 ## Setting up Build
 
